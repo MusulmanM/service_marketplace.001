@@ -1,0 +1,5 @@
+Django==5.1.2
+djangorestframework==3.15.2
+djangorestframework-simplejwt==5.3.1
+Pillow>=11.3,<13
+psycopg[binary]>=3.2.10,<4
