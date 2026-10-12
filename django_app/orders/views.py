@@ -33,10 +33,13 @@ class OrderViewSet(viewsets.ModelViewSet):
         queryset = (
             Order.objects.select_related(
                 "client",
+                "client__profile",
                 "master",
                 "master__user",
                 "service",
                 "service__category",
+                "report",
+                "review",
             )
             .prefetch_related(
                 "master__categories",
@@ -64,6 +67,8 @@ class OrderViewSet(viewsets.ModelViewSet):
         status_filter = self.request.query_params.get("status")
         if status_filter:
             status_filter = status_filter.lower()
+            if status_filter == "pending":
+                status_filter = OrderStatus.NEW
             allowed_values = {choice.value for choice in OrderStatus}
             queryset = queryset.filter(status=status_filter) if status_filter in allowed_values else queryset.none()
 

@@ -23,11 +23,11 @@ class OrderPhotoInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("id", "client", "master", "title", "status", "price", "scheduled_at", "created_at")
+    list_display = ("number", "client", "master", "title", "status", "price", "scheduled_at", "created_at")
     list_filter = ("status",)
-    search_fields = ("title", "client__phone_number", "master__user__phone_number", "master__name")
+    search_fields = ("title", "number_seq", "client__phone_number", "master__user__phone_number", "master__name")
     inlines = [OrderPhotoInline, OrderStatusHistoryInline]
-    readonly_fields = ("created_at", "updated_at", "completed_at")
+    readonly_fields = ("number_seq", "created_at", "updated_at", "completed_at")
 
 
 @admin.register(OrderStatusHistory)
@@ -40,16 +40,16 @@ class OrderStatusHistoryAdmin(admin.ModelAdmin):
 
 @admin.register(OrderPhoto)
 class OrderPhotoAdmin(admin.ModelAdmin):
-    list_display = ("order", "photo_type", "uploaded_by", "created_at")
-    list_filter = ("photo_type",)
+    list_display = ("order", "kind", "uploaded_by", "created_at")
+    list_filter = ("kind",)
     search_fields = ("order__id", "uploaded_by__phone_number")
     readonly_fields = ("created_at",)
 
 
 @admin.register(OrderReport)
 class OrderReportAdmin(admin.ModelAdmin):
-    list_display = ("order", "master", "created_at", "updated_at")
-    search_fields = ("order__id", "master__name", "master__user__phone_number", "text")
+    list_display = ("order", "master", "total", "warranty_days", "created_at", "updated_at")
+    search_fields = ("order__id", "master__name", "master__user__phone_number", "summary")
     readonly_fields = ("created_at", "updated_at")
 
 

@@ -1,5 +1,7 @@
-Django==5.1.2
+# Django 5.2+ required for Python 3.14 (admin template Context.__copy__ fix)
+Django>=5.2.8,<5.3
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
+django-cors-headers>=4.4,<5
 Pillow>=11.3,<13
 psycopg[binary]>=3.2.10,<4
